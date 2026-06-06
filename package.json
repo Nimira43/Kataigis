@@ -1,0 +1,29 @@
+{
+  "name": "kataigis",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nimira43/Kataigis.git"
+  },
+  "author": "Nick Rabone",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nimira43/Kataigis/issues"
+  },
+  "homepage": "https://github.com/Nimira43/Kataigis#readme",
+  "description": "",
+  "dependencies": {
+    "lil-gui": "^0.20.0",
+    "three": "^0.174.0"
+  },
+  "devDependencies": {
+    "vite": "^6.2.2",
+    "vite-plugin-glsl": "^1.3.3",
+    "vite-plugin-restart": "^0.4.2"
+  }
+}
