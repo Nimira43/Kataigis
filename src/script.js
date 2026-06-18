@@ -5,10 +5,15 @@ import waterVertexShader from './shaders/water/vertex.glsl'
 import waterFragmentShader from './shaders/water/fragment.glsl'
 
 const gui = new GUI({ width: 340 })
+const debugObject = {}
+
 const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 const waterGeometry = new THREE.PlaneGeometry(2, 2, 128, 128)
+
+debugObject.depthColour = '#0000ff'
+debugObject.surfaceColour = '#8888ff'
 
 const waterMaterial = new THREE.ShaderMaterial({
   vertexShader: waterVertexShader,
@@ -25,7 +30,19 @@ const waterMaterial = new THREE.ShaderMaterial({
     },
     uBigWavesSpeed: {
       value: 0.75
-    }
+    },
+    uDepthColour: {
+      value: new THREE.Color(debugObject.depthColour)
+    },
+    uSurfaceColour: {
+      value: new THREE.Color(debugObject.surfaceColour)
+    },
+    uColourOffset: { 
+      value: 0.25
+    },
+    uColourMultiplier: {
+      value: 2
+    },
   }
 })
 
@@ -53,6 +70,32 @@ gui
   .max(4)
   .step(0.001)
   .name('uBigWavesSpeed')
+gui
+  .addColor(debugObject, 'depthColour')
+  .name('depthColour')
+  .onChange(() => {
+    waterMaterial.uniforms.uDepthColour.value.set(debugObject.depthColour)
+  })
+gui
+  .addColor(debugObject, 'surfaceColour')
+  .name('surfaceColour')
+  .onChange(() => {
+    waterMaterial.uniforms.uSurfaceColour.value.set(debugObject.surfaceColour)
+  })
+gui
+  .add(waterMaterial.uniforms.uColourOffset, 'value')
+  .min(0)
+  .max(1)
+  .step(0.001)
+  .name('uColourOffset')
+gui
+  .add(waterMaterial.uniforms.uColourMultiplier, 'value')
+  .min(0)
+  .max(10)
+  .step(0.001)
+  .name('uColourMultiplier')
+
+
 
 const water = new THREE.Mesh(waterGeometry, waterMaterial)
 water.rotation.x = - Math.PI * 0.5
